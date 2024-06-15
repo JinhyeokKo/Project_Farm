@@ -25,28 +25,27 @@ public class Like {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    public Long getId() {
-        return id;
+    public Like() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public static Like createLike(Post post, Member member) {
+        return new Like(post, member);
+    }
+
+    private Like(Post post, Member member) {
+        this.post = post;
+        this.member = member;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public Post getPost() {
         return post;
     }
 
-    public void setPost(Post post) {
-        this.post = post;
-    }
-
     public Member getMember() {
         return member;
     }
-
-    public void setMember(Member member) {
-        this.member = member;
-    }
-
 }

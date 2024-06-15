@@ -1,9 +1,10 @@
+# Member
 ### register
-POST http://localhost:8080/register
+POST http://localhost:8080/login/register
 Content-Type: application/json
 
 {
-  "username": "qwer1",
+  "username": "test1",
   "password": "1234",
   "address": "qweqf",
   "phone": "214214214",
@@ -16,13 +17,100 @@ POST http://localhost:8080/login
 Content-Type: application/json
 
 {
-  "username": "qwer1",
+  "username": "qwer",
   "password": "1234"
 }
 
-### logincheck
-GET http://localhost:8080/logincheck?username=qwer1&password=1234
-
-
 ### doublecheck
-GET http://localhost:8080/doubleCheck?username=qwer3
+POST http://localhost:8080/login/doubleCheck?username=qwer
+
+
+
+# Post
+### post
+POST http://localhost:8080/post
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTg0Mzk1MjksInVzZXJuYW1lIjoicXdlciJ9.lljI_HZhToCXRigAsEIP1q-T7KWPC70vik_Zm4VzrpI
+Content-Type: application/json
+
+{
+  "title": "qweqf1231",
+  "content": "qweqf111",
+  "category": "qweqf121"
+}
+
+### getallposts
+GET http://localhost:8080/posts
+
+### getpost
+GET http://localhost:8080/posts/8
+
+### getposts(auth)
+GET http://localhost:8080/post
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTg0NDQ2OTcsInVzZXJuYW1lIjoicXdlciJ9.K8RERUBmQ1eFPxl-YZrzXdg_ed4Cs8j5D216R1ZeyrI
+
+
+### updatepost
+PUT http://localhost:8080/post/8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTg0NDA1MzksInVzZXJuYW1lIjoicXdlciJ9.2M-MwGD8AxpqHQTOXp9dDFNxjfnJ5_ZC3xoSHMDcYaQ
+Content-Type: application/json
+
+{
+  "title": "112qqq31",
+  "content": "1232qq1312",
+  "category": "321qqq312"
+}
+
+### deletepost
+DELETE http://localhost:8080/post/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTgyOTU5MzEsInVzZXJuYW1lIjoicXdlciJ9.2PajwI_1XZJU9ZFb4JIKMnN2_lm7U1fTJhzv8InVwSM
+
+
+
+# Comment
+### comment
+POST http://localhost:8080/comment/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTgyOTU5MzEsInVzZXJuYW1lIjoicXdlciJ9.2PajwI_1XZJU9ZFb4JIKMnN2_lm7U1fTJhzv8InVwSM
+Content-Type: application/json
+
+{
+  "content": "qweqf"
+}
+
+### getallcomments
+GET http://localhost:8080/comments
+
+### getcomment
+GET http://localhost:8080/comments/1
+
+### updatecomment
+PUT http://localhost:8080/comment/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTgyOTU5MzEsInVzZXJuYW1lIjoicXdlciJ9.2PajwI_1XZJU9ZFb4JIKMnN2_lm7U1fTJhzv8InVwSM
+Content-Type: application/json
+
+{
+  "content": "qweqf123"
+}
+
+### deletecomment
+DELETE http://localhost:8080/comment/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTgyOTU5MzEsInVzZXJuYW1lIjoicXdlciJ9.2PajwI_1XZJU9ZFb4JIKMnN2_lm7U1fTJhzv8InVwSM
+
+
+# Report
+### Report
+POST http://localhost:8080/report/2
+Content-Type: application/json
+
+{
+  "reason": "qweq1f"
+}
+
+
+
+
+### Like
+POST http://localhost:8080/like/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTgyOTU5MzEsInVzZXJuYW1lIjoicXdlciJ9.2PajwI_1XZJU9ZFb4JIKMnN2_lm7U1fTJhzv8InVwSM
+
+### getlike
+GET http://localhost:8080/likes/2

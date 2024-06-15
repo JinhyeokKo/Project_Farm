@@ -46,7 +46,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String toekn = JWT.create()
                 .withExpiresAt(new Date(System.currentTimeMillis()+1000*60*100))
                 .withClaim("username", user.getUsername())
-                .sign(Algorithm.HMAC256("project farm"));
+                .sign(Algorithm.HMAC256("project.farm"));
         response.addHeader("Authorization", "Bearer " + toekn);
         response.setStatus(HttpStatus.OK.value());
     }

@@ -1,5 +1,6 @@
 package farm.community.domain;
 
+import farm.community.dto.MessageDto;
 import farm.member.domain.Member;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -29,6 +30,16 @@ public class Message {
     @ManyToOne
     @JoinColumn(name = "receiver_id")
     private Member receiver;
+
+    public static Message createMessage(MessageDto messageDto) {
+        return new Message(messageDto);
+    }
+
+    private Message(MessageDto messageDto) {
+        this.content = messageDto.getContent();
+        this.sender = messageDto.getSender();
+        this.receiver = messageDto.getReceiver();
+    }
 
     public Long getId() {
         return id;

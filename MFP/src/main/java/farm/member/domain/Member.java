@@ -5,7 +5,22 @@ import farm.community.domain.Like;
 import farm.community.domain.Message;
 import farm.community.domain.Post;
 import farm.gallery.domain.Gallery;
-import jakarta.persistence.*;
+import farm.member.dto.MemberDto;
+import farm.program.domain.CustomerInfo;
+import farm.program.domain.FarmInfo;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -38,144 +53,117 @@ public class Member {
 
     private String address;
 
+    @Column(name = "member_role")
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Post> posts;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Gallery> galleries;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Like> likes;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Comment> comments;
 
-    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Message> messagesSent;
 
-    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Message> messagesReceived;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<FarmInfo> farmInfos;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<CustomerInfo> customerInfos;
+
+    public Member() {
+
+    }
+
+    private Member(MemberDto memberDto) {
+        this.username = memberDto.getUsername();
+        this.password = memberDto.getPassword();
+        this.name = memberDto.getName();
+        this.email = memberDto.getEmail();
+        this.phone = memberDto.getPhone();
+        this.address = memberDto.getAddress();
+        this.role = Role.ROLE_CUSTOMER;
+    }
+
+    public static Member createMember(MemberDto memberDto) {
+        return new Member(memberDto);
+    }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getPassword() {
         return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public Date getRegDate() {
+        return regDate;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public Role getRole() {
         return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     public Set<Post> getPosts() {
         return posts;
     }
 
-    public void setPosts(Set<Post> posts) {
-        this.posts = posts;
-    }
-
     public Set<Gallery> getGalleries() {
         return galleries;
-    }
-
-    public void setGalleries(Set<Gallery> galleries) {
-        this.galleries = galleries;
-    }
-
-    public Date getRegDate() {
-        return regDate;
-    }
-
-    public void setRegDate(Date regDate) {
-        this.regDate = regDate;
     }
 
     public Set<Like> getLikes() {
         return likes;
     }
 
-    public void setLikes(Set<Like> likes) {
-        this.likes = likes;
-    }
-
     public Set<Comment> getComments() {
         return comments;
-    }
-
-    public void setComments(Set<Comment> comments) {
-        this.comments = comments;
     }
 
     public Set<Message> getMessagesSent() {
         return messagesSent;
     }
 
-    public void setMessagesSent(Set<Message> messagesSent) {
-        this.messagesSent = messagesSent;
-    }
-
     public Set<Message> getMessagesReceived() {
         return messagesReceived;
     }
 
-    public void setMessagesReceived(Set<Message> messagesReceived) {
-        this.messagesReceived = messagesReceived;
+    public Set<FarmInfo> getFarmInfos() {
+        return farmInfos;
+    }
+
+    public Set<CustomerInfo> getCustomerInfos() {
+        return customerInfos;
     }
 }

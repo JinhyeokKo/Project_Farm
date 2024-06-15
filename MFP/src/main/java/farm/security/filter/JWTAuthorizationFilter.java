@@ -35,10 +35,10 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
             return;
         }
         String jwtToken = srcToken.replace("Bearer ", "");
-        String username = JWT.require(Algorithm.HMAC256("com.edu.pnu.jwt")).build().verify(jwtToken).getClaim("username").asString();
+        String username = JWT.require(Algorithm.HMAC256("project.farm")).build().verify(jwtToken).getClaim("username").asString();
         Optional<Member> opt = memberRepository.findByUsername(username);
 
-        if (!opt.isPresent()) {
+        if (opt.isEmpty()) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -52,4 +52,5 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(auth);
         filterChain.doFilter(request, response);
     }
+
 }

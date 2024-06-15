@@ -34,10 +34,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers(
                                 new AntPathRequestMatcher("/login/**"),
-                                new AntPathRequestMatcher("/posts/**"),
                                 new AntPathRequestMatcher("/likes/**"),
                                 new AntPathRequestMatcher("/comments/**"),
-                                new AntPathRequestMatcher("/report/**")
+                                new AntPathRequestMatcher("/report/**"),
+                                new AntPathRequestMatcher("/posts/**")
                         ).permitAll()
                         .requestMatchers(
                                 new AntPathRequestMatcher("/message/**"),

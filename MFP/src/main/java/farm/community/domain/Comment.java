@@ -35,51 +35,44 @@ public class Comment {
     @JoinColumn(name = "post_id")
     private Post post;
 
-    public Long getId() {
-        return id;
+    public Comment() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public static Comment createComment(String comment, Post post, Member member) {
+        return new Comment(comment, post, member);
+    }
+
+    private Comment(String comment, Post post, Member member) {
+        this.content = comment;
+        this.member = member;
+        this.post = post;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     public Date getCommentDate() {
         return commentDate;
-    }
-
-    public void setCommentDate(Date commentDate) {
-        this.commentDate = commentDate;
-    }
-
-    public Member getMember() {
-        return member;
-    }
-
-    public void setMember(Member member) {
-        this.member = member;
-    }
-
-    public Post getPost() {
-        return post;
-    }
-
-    public void setPost(Post post) {
-        this.post = post;
     }
 
     public Date getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
+    public Member getMember() {
+        return member;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

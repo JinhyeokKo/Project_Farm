@@ -1,27 +1,51 @@
 package farm.program.service;
 
+import farm.member.domain.Role;
+import farm.program.domain.Crops;
 import farm.program.domain.CustomerInfo;
 import farm.program.domain.FarmInfo;
+import farm.program.repository.CropsRepository;
 import farm.program.repository.CustomerInfoRepository;
 import farm.program.repository.FarmInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 @Service
 public class FarmService {
 
-    @Autowired
-    private FarmInfoRepository farmInfoRepository;
+    private final FarmInfoRepository farmInfoRepository;
+
+    private final CustomerInfoRepository customerInfoRepository;
+
+    private final CropsRepository cropsRepository;
 
     @Autowired
-    private CustomerInfoRepository customerInfoRepository;
+    public FarmService(FarmInfoRepository farmInfoRepository, CustomerInfoRepository customerInfoRepository, CropsRepository cropsRepository) {
+        this.farmInfoRepository = farmInfoRepository;
+        this.customerInfoRepository = customerInfoRepository;
+        this.cropsRepository = cropsRepository;
+    }
+
+    public ResponseEntity<List<Crops>> getAllCrops(){
+        List<Crops> crops = cropsRepository.findAll();
+        return ResponseEntity.ok(crops);
+    }
 
     // 고객이 선택한 작물에 따라 농장 목록을 반환하는 메서드
-    public List<FarmInfo> getFarmsByCrop(String crop) {
-        return farmInfoRepository.findByCropsContaining(crop);
+    public List<FarmInfo> getFarmsByCrop(List<String> crops) {
+        List<FarmInfo> farmInfos = new ArrayList<>();
+        for(String crop : crops){
+            FarmInfo farmCrops = farmInfoRepository.findByName(crop);
+            farmInfos.add(farmCrops);
+        }
+        return farmInfos;
     }
 
     // 고객의 신청을 처리하는 메서드
@@ -47,5 +71,13 @@ public class FarmService {
         }
         // 업데이트된 CustomerInfo 객체를 포함한 Optional 객체를 반환 customerOpt 가 비어있으면 빈 Optional 객체를 반환
         return customerOpt;
+    }
+
+    public List<FarmInfo> getFarmerFarmInfos(){
+        return farmInfoRepository.findByMemberRole(Role.ROLE_FARMER);
+    }
+
+    public List<CustomerInfo> getCustomerInfos(){
+        return customerInfoRepository.findByMemberRole(Role.ROLE_CUSTOMER);
     }
 }

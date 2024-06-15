@@ -1,5 +1,6 @@
 package farm.community.domain;
 
+import farm.community.dto.PostDto;
 import farm.member.domain.Member;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -51,99 +52,78 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Comment> comments = new HashSet<>();
 
-    public Long getId() {
-        return id;
+    public Post() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public static Post createPost(PostDto postDto, Member member){
+        return new Post(postDto, member);
+    }
+
+    private Post(PostDto postDto, Member member){
+        this.title = postDto.getTitle();
+        this.content = postDto.getContent();
+        this.createdBy = member.getUsername();
+        this.category = postDto.getCategory();
+        this.member = member;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getContent() {
         return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 
     public String getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
     public int getViewCount() {
         return viewCount;
-    }
-
-    public void setViewCount(int viewCount) {
-        this.viewCount = viewCount;
     }
 
     public Date getPostDate() {
         return postDate;
     }
 
-    public void setPostDate(Date postDate) {
-        this.postDate = postDate;
-    }
-
     public Date getUpdateDate() {
         return updateDate;
-    }
-
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
     }
 
     public String getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     public Member getMember() {
         return member;
-    }
-
-    public void setMember(Member member) {
-        this.member = member;
     }
 
     public Set<Like> getLikes() {
         return likes;
     }
 
-    public void setLikes(Set<Like> likes) {
-        this.likes = likes;
-    }
-
     public Set<Report> getReports() {
         return reports;
-    }
-
-    public void setReports(Set<Report> reports) {
-        this.reports = reports;
     }
 
     public Set<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(Set<Comment> comments) {
-        this.comments = comments;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

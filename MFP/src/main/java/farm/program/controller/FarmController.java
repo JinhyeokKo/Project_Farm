@@ -1,25 +1,39 @@
 package farm.program.controller;
 
+import farm.program.domain.Crops;
 import farm.program.domain.CustomerInfo;
 import farm.program.domain.FarmInfo;
 import farm.program.service.FarmService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 @RestController
 @RequestMapping("/program")
 public class FarmController {
 
+    private final FarmService farmService;
+
     @Autowired
-    private FarmService farmService;
+    public FarmController(FarmService farmService) {
+        this.farmService = farmService;
+    }
+
+    @GetMapping("/crops")
+    public ResponseEntity<List<Crops>> getAllCrops(){
+        return farmService.getAllCrops();
+    }
 
     // 고객이 작물 선택시 해당 작물재배 가능한 농장 목록을 반환
     @GetMapping("/farms")
-    public List<FarmInfo> getFarmsByCrop(@RequestParam String crop) {
-        return farmService.getFarmsByCrop(crop);
+    public ResponseEntity<?> getFarmsByCrop(List<String> crops) {
+        List<FarmInfo> fm = farmService.getFarmsByCrop(crops);
+        return ResponseEntity.ok(fm);
     }
 
     // 고객이 농장을 선택하고 신청을 처리

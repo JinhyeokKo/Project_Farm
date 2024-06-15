@@ -25,35 +25,31 @@ public class Report {
     @JoinColumn(name = "post_id")
     private Post post;
 
-    public Long getId() {
-        return id;
+    public Report() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public static Report createReport(String reason, Post post) {
+        return new Report(reason, post);
+    }
+
+    private Report(String reason, Post post) {
+        this.reason = reason;
+        this.post = post;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getReason() {
         return reason;
     }
 
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
     public Date getReportDate() {
         return reportDate;
     }
 
-    public void setReportDate(Date reportDate) {
-        this.reportDate = reportDate;
-    }
-
     public Post getPost() {
         return post;
-    }
-
-    public void setPost(Post post) {
-        this.post = post;
     }
 }

@@ -1,11 +1,7 @@
 package farm.community.controller;
 
-import farm.community.domain.Like;
-import farm.community.domain.Post;
-import farm.community.repository.LikeRepository;
-import farm.community.repository.PostRepository;
-import farm.member.domain.Member;
-import farm.member.repository.MemberRepository;
+import farm.community.service.LikeService;
+import farm.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -15,47 +11,39 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
+import java.util.NoSuchElementException;
+
 
 @Transactional
 @RestController
 public class LikeController {
 
-    private final LikeRepository likeRepository;
-
-    private final PostRepository postRepository;
-
-    private final MemberRepository memberRepository;
+    private final LikeService likeService;
 
     @Autowired
-    public LikeController(LikeRepository likeRepository, PostRepository postRepository, MemberRepository memberRepository) {
-        this.likeRepository = likeRepository;
-        this.postRepository = postRepository;
-        this.memberRepository = memberRepository;
+    public LikeController(LikeService likeService) {
+        this.likeService = likeService;
     }
 
     @PostMapping("/like/{postId}")
-    public ResponseEntity<Void> likePost(@PathVariable Long postId, Authentication authentication) {
-        Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("해당 포스트가 없습니다."));
-        Member member = memberRepository.findByUsername(authentication.getName()).orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다."));
-
-        Optional<Like> like = likeRepository.findByPostAndMember(post, member);
-
-        if (like.isPresent()) {
-            likeRepository.delete(like.get());
-        } else {
-            Like newLike = new Like();
-            newLike.setPost(post);
-            newLike.setMember(member);
-            likeRepository.save(newLike);
+    public ResponseEntity<String> likePost(@PathVariable long postId, Authentication authentication) {
+        try {
+            likeService.likePost(postId, authentication.getName());
+            return ResponseUtil.ok("좋아요 수정 완료");
+        } catch (NoSuchElementException e) {
+            return ResponseUtil.notFound(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            return ResponseUtil.badRequest(e.getMessage());
         }
-        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/likes/{postId}")
-    public ResponseEntity<Long> getLikeCount(@PathVariable Long postId) {
-        Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("해당 포스트가 없습니다."));
-        return ResponseEntity.ok(likeRepository.countByPost(post));
+    public ResponseEntity<Long> getLikeCount(@PathVariable long postId) {
+        try {
+            long count = likeService.likeCount(postId);
+            return ResponseEntity.ok(count);
+        } catch (NoSuchElementException e) {
+            return ResponseUtil.notFound();
+        }
     }
-
 }
