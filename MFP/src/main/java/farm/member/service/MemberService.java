@@ -8,8 +8,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
 @Service
+@Transactional
 public class MemberService {
 
     private final MemberRepository memberRepository;
@@ -21,28 +21,37 @@ public class MemberService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void registerMember(MemberDto memberDto) {
-        if (doubleCheck(memberDto.getUsername())) {
-            throw new IllegalArgumentException("이미 사용중인 아이디입니다.");
-        }
-        registerMemberDetails(memberDto);
-    }
-
-    private void registerMemberDetails(MemberDto memberDto) {
-        memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
-        memberRepository.save(Member.createMember(memberDto));
-    }
-
-    public boolean doubleCheck(String username) {
-        return memberRepository.findByUsername(username).isPresent();
-    }
-
     public MemberDto userInfo(String username){
         return userInfoDetails(username);
     }
+
     private MemberDto userInfoDetails(String username){
-        Member member = memberRepository.findByUsername(username)
+        return MemberDto.createMemberDto(getMemberInfo(username));
+    }
+
+    public void editUserInfo(MemberDto memberDto, String username){
+        editUserInfoDetails(memberDto, getMemberInfo(username));
+    }
+
+    private void editUserInfoDetails(MemberDto memberDto, Member member){
+        member.setEmail(memberDto.getEmail());
+        member.setAddress(memberDto.getAddress());
+        member.setPhone(memberDto.getPhone());
+        member.setProfileImage(memberDto.getProfileImage());
+        memberRepository.save(member);
+    }
+
+    private Member getMemberInfo(String username){
+        return memberRepository.findByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
-        return MemberDto.createMemberDto(member);
+    }
+
+    public void editUserPass(String password, String username){
+        editUserPassDetails(password, getMemberInfo(username));
+    }
+
+    private void editUserPassDetails(String password, Member member){
+        member.setPassword(passwordEncoder.encode(password));
+        memberRepository.save(member);
     }
 }

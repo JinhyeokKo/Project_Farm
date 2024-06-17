@@ -9,6 +9,7 @@ public class MemberDto {
     private String email;
     private String phone;
     private String address;
+    private byte[] profileImage;
 
     private MemberDto(Member member) {
         this.username = member.getUsername();
@@ -16,6 +17,7 @@ public class MemberDto {
         this.phone = member.getPhone();
         this.address = member.getAddress();
         this.email = member.getEmail();
+        this.profileImage = member.getProfileImage();
     }
 
     public static MemberDto createMemberDto(Member member) {
@@ -68,5 +70,13 @@ public class MemberDto {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public byte[] getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(byte[] profileImage) {
+        this.profileImage = profileImage;
     }
 }

@@ -43,7 +43,8 @@ public class SecurityConfig {
                                 new AntPathRequestMatcher("/message/**"),
                                 new AntPathRequestMatcher("/like/**"),
                                 new AntPathRequestMatcher("/comment/**"),
-                                new AntPathRequestMatcher("/post/**")
+                                new AntPathRequestMatcher("/post/**"),
+                                new AntPathRequestMatcher("/user/**")
                         ).authenticated()
                 )
                 .csrf(AbstractHttpConfigurer::disable)

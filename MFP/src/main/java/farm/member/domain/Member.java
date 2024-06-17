@@ -18,6 +18,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -47,11 +48,14 @@ public class Member {
 
     private String phone;
 
+    private String address;
+
+    @Lob
+    private byte[] profileImage;
+
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     private Date regDate;
-
-    private String address;
 
     @Column(name = "member_role")
     @Enumerated(EnumType.STRING)
@@ -92,6 +96,7 @@ public class Member {
         this.email = memberDto.getEmail();
         this.phone = memberDto.getPhone();
         this.address = memberDto.getAddress();
+        this.profileImage = memberDto.getProfileImage();
         this.role = Role.ROLE_CUSTOMER;
     }
 
@@ -165,5 +170,29 @@ public class Member {
 
     public Set<CustomerInfo> getCustomerInfos() {
         return customerInfos;
+    }
+
+    public byte[] getProfileImage() {
+        return profileImage;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setProfileImage(byte[] profileImage) {
+        this.profileImage = profileImage;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
