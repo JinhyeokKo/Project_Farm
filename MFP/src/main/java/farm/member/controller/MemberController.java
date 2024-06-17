@@ -5,7 +5,9 @@ import farm.member.service.MemberService;
 import farm.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,6 +49,15 @@ public class MemberController {
             return ResponseUtil.badRequest(e.getMessage());
         } catch (Exception e) {
             return ResponseUtil.serverError("회원가입 실패");
+        }
+    }
+
+    @PostMapping("/userInfo")
+    public ResponseEntity<MemberDto> userInfo(Authentication authentication) {
+        try{
+            return ResponseUtil.ok(memberService.userInfo(authentication.getName()));
+        }catch (IllegalArgumentException e){
+            return ResponseUtil.notFound();
         }
     }
 }

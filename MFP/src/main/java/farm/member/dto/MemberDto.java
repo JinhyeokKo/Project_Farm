@@ -1,5 +1,7 @@
 package farm.member.dto;
 
+import farm.member.domain.Member;
+
 public class MemberDto {
     private String username;
     private String password;
@@ -7,6 +9,18 @@ public class MemberDto {
     private String email;
     private String phone;
     private String address;
+
+    private MemberDto(Member member) {
+        this.username = member.getUsername();
+        this.name = member.getName();
+        this.phone = member.getPhone();
+        this.address = member.getAddress();
+        this.email = member.getEmail();
+    }
+
+    public static MemberDto createMemberDto(Member member) {
+        return new MemberDto(member);
+    }
 
     public String getUsername() {
         return username;

@@ -36,4 +36,13 @@ public class MemberService {
     public boolean doubleCheck(String username) {
         return memberRepository.findByUsername(username).isPresent();
     }
+
+    public MemberDto userInfo(String username){
+        return userInfoDetails(username);
+    }
+    private MemberDto userInfoDetails(String username){
+        Member member = memberRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+        return MemberDto.createMemberDto(member);
+    }
 }
