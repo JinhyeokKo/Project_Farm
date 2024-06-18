@@ -21,14 +21,15 @@ public class RegisterService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void registerMember(MemberDto memberDto) {
+    public void registerMember(MemberDto memberDto, byte[] profileImage) {
         if (doubleCheck(memberDto.getUsername())) {
             throw new IllegalArgumentException("이미 사용중인 아이디입니다.");
         }
-        registerMemberDetails(memberDto);
+        registerMemberDetails(memberDto, profileImage);
     }
 
-    private void registerMemberDetails(MemberDto memberDto) {
+    private void registerMemberDetails(MemberDto memberDto, byte[] profileImage) {
+        memberDto.setProfileImage(profileImage);
         memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
         memberRepository.save(Member.createMember(memberDto));
     }
