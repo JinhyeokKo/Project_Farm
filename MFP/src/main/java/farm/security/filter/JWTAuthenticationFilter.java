@@ -52,4 +52,5 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.addHeader("username", user.getUsername());
         response.setStatus(HttpStatus.OK.value());
     }
+
 }

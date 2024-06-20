@@ -40,7 +40,7 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerMember(@RequestPart MemberDto memberDto, @RequestPart MultipartFile profileImage) {
+    public ResponseEntity<String> registerMember(@RequestPart("memberDto") MemberDto memberDto, @RequestPart MultipartFile profileImage) {
         try {
             registerService.registerMember(memberDto, profileImage.getBytes());
             return ResponseUtil.created("회원가입 성공");

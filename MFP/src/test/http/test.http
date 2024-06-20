@@ -114,3 +114,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTgyOTU5M
 
 ### getlike
 GET http://localhost:8080/likes/2
+
+
+### ML
+POST http://localhost:8080/upload
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="test.jpg"
+Content-Type: image/jpeg
+
+@/D:/A/test.jpg
+--boundary--

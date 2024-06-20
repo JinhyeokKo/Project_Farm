@@ -50,6 +50,7 @@ public class Member {
 
     private String address;
 
+    @Column(columnDefinition = "MEDIUMBLOB")
     @Lob
     private byte[] profileImage;
 

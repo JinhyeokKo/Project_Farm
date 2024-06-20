@@ -11,6 +11,9 @@ public class MemberDto {
     private String address;
     private byte[] profileImage;
 
+    private MemberDto() {
+    }
+
     private MemberDto(Member member) {
         this.username = member.getUsername();
         this.name = member.getName();

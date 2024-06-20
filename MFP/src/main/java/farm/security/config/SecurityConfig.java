@@ -37,7 +37,8 @@ public class SecurityConfig {
                                 new AntPathRequestMatcher("/likes/**"),
                                 new AntPathRequestMatcher("/comments/**"),
                                 new AntPathRequestMatcher("/report/**"),
-                                new AntPathRequestMatcher("/posts/**")
+                                new AntPathRequestMatcher("/posts/**"),
+                                new AntPathRequestMatcher("/upload")
                         ).permitAll()
                         .requestMatchers(
                                 new AntPathRequestMatcher("/message/**"),
