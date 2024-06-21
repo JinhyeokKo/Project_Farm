@@ -1,16 +1,27 @@
 # Member
 ### register
 POST http://localhost:8080/login/register
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="memberDto"
 Content-Type: application/json
 
 {
-  "username": "test1",
+  "username": "test1123",
   "password": "1234",
-  "address": "qweqf",
+  "address": "qweqf2",
   "phone": "214214214",
   "email": "qwfwqfq",
-  "name": "qweqf"
+  "name": "qweqf2"
 }
+
+--boundary
+Content-Disposition: form-data; name="profileImage"; filename="test.jpg"
+Content-Type: image/jpeg
+
+@/D:/A/test.jpg
+--boundary--
 
 ### login
 POST http://localhost:8080/login
@@ -22,18 +33,18 @@ Content-Type: application/json
 }
 
 ### doublecheck
-POST http://localhost:8080/login/doubleCheck?username=qwer
+POST http://localhost:8080/login/doubleCheck?username=qwer555
 
 
 
 # Post
 ### post
 POST http://localhost:8080/post
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTg0Mzk1MjksInVzZXJuYW1lIjoicXdlciJ9.lljI_HZhToCXRigAsEIP1q-T7KWPC70vik_Zm4VzrpI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTg5NDA4MjQsInVzZXJuYW1lIjoicXdlciJ9.tqan9mtHoaC7ajuh6APdLVVmC7uKUIkyJPAQ8Q6tmfE
 Content-Type: application/json
 
 {
-  "title": "qweqf1231",
+  "title": "qweqf121131",
   "content": "qweqf111",
   "category": "qweqf121"
 }
@@ -46,12 +57,11 @@ GET http://localhost:8080/posts/8
 
 ### getposts(auth)
 GET http://localhost:8080/post
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTg0NDQ2OTcsInVzZXJuYW1lIjoicXdlciJ9.K8RERUBmQ1eFPxl-YZrzXdg_ed4Cs8j5D216R1ZeyrI
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTg5NDA4MjQsInVzZXJuYW1lIjoicXdlciJ9.tqan9mtHoaC7ajuh6APdLVVmC7uKUIkyJPAQ8Q6tmfE
 
 ### updatepost
-PUT http://localhost:8080/post/8
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTg0NDA1MzksInVzZXJuYW1lIjoicXdlciJ9.2M-MwGD8AxpqHQTOXp9dDFNxjfnJ5_ZC3xoSHMDcYaQ
+PUT http://localhost:8080/post/12
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTg5NDA4MjQsInVzZXJuYW1lIjoicXdlciJ9.tqan9mtHoaC7ajuh6APdLVVmC7uKUIkyJPAQ8Q6tmfE
 Content-Type: application/json
 
 {
@@ -61,26 +71,27 @@ Content-Type: application/json
 }
 
 ### deletepost
-DELETE http://localhost:8080/post/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTgyOTU5MzEsInVzZXJuYW1lIjoicXdlciJ9.2PajwI_1XZJU9ZFb4JIKMnN2_lm7U1fTJhzv8InVwSM
+DELETE http://localhost:8080/post/12
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTg5NDA4MjQsInVzZXJuYW1lIjoicXdlciJ9.tqan9mtHoaC7ajuh6APdLVVmC7uKUIkyJPAQ8Q6tmfE
 
 
 
 # Comment
 ### comment
-POST http://localhost:8080/comment/2
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTgyOTU5MzEsInVzZXJuYW1lIjoicXdlciJ9.2PajwI_1XZJU9ZFb4JIKMnN2_lm7U1fTJhzv8InVwSM
-Content-Type: application/json
-
-{
-  "content": "qweqf"
-}
+POST http://localhost:8080/comment/4?comment=qwer4534253
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTg5NDA4MjQsInVzZXJuYW1lIjoicXdlciJ9.tqan9mtHoaC7ajuh6APdLVVmC7uKUIkyJPAQ8Q6tmfE
+Content-Type: application/x-www-form-urlencoded
 
 ### getallcomments
 GET http://localhost:8080/comments
 
 ### getcomment
-GET http://localhost:8080/comments/1
+GET http://localhost:8080/comments/comment/3
+Accept: application/json
+
+### getPostComment
+GET http://localhost:8080/comments/post/11
+Accept: application/json
 
 ### updatecomment
 PUT http://localhost:8080/comment/1
@@ -88,7 +99,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTgyOTU5M
 Content-Type: application/json
 
 {
-  "content": "qweqf123"
+  "comment": "qweqf123"
 }
 
 ### deletecomment
@@ -98,12 +109,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTgyOTU5M
 
 # Report
 ### Report
-POST http://localhost:8080/report/2
-Content-Type: application/json
-
-{
-  "reason": "qweq1f"
-}
+POST http://localhost:8080/report/22?reason=feqfeqg
+Content-Type: application/x-www-form-urlencoded
 
 
 

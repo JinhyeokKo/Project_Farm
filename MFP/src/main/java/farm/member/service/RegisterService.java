@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Transactional
 @Service
@@ -26,6 +29,14 @@ public class RegisterService {
             throw new IllegalArgumentException("이미 사용중인 아이디입니다.");
         }
         registerMemberDetails(memberDto, profileImage);
+    }
+
+    public byte[] checkProfileImage(MultipartFile profileImage) throws IOException {
+        if(profileImage.isEmpty()){
+            return null;
+        }else{
+            return profileImage.getBytes();
+        }
     }
 
     private void registerMemberDetails(MemberDto memberDto, byte[] profileImage) {

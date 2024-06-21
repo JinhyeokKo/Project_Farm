@@ -26,7 +26,7 @@ public class RegisterController {
     }
 
     @PostMapping("/doubleCheck")
-    public ResponseEntity<String> doubleCheck(@RequestParam String username) {
+    public ResponseEntity<String> doubleCheck(@RequestParam("username") String username) {
         try {
             boolean check = registerService.doubleCheck(username);
             if (check) {
@@ -40,9 +40,9 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerMember(@RequestPart("memberDto") MemberDto memberDto, @RequestPart MultipartFile profileImage) {
+    public ResponseEntity<String> registerMember(@RequestPart("memberDto") MemberDto memberDto, @RequestPart(value = "profileImage", required = false) MultipartFile profileImage) {
         try {
-            registerService.registerMember(memberDto, profileImage.getBytes());
+            registerService.registerMember(memberDto, registerService.checkProfileImage(profileImage));
             return ResponseUtil.created("회원가입 성공");
         } catch (IllegalArgumentException e) {
             return ResponseUtil.badRequest(e.getMessage());

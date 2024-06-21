@@ -39,7 +39,7 @@ public class PostController {
     }
 
     @PutMapping("/post/{postId}")
-    public ResponseEntity<String> updatePost(@PathVariable long postId, @RequestBody PostDto updatedPost, Authentication authentication) {
+    public ResponseEntity<String> updatePost(@PathVariable("postId") long postId, @RequestBody PostDto updatedPost, Authentication authentication) {
         try {
             postService.updatePost(postId, updatedPost, authentication.getName());
             return ResponseUtil.ok("게시글이 성공적으로 수정되었습니다.");
@@ -51,7 +51,7 @@ public class PostController {
     }
 
     @DeleteMapping("/post/{postId}")
-    public ResponseEntity<String> deletePost(@PathVariable long postId, Authentication authentication) {
+    public ResponseEntity<String> deletePost(@PathVariable("postId") long postId, Authentication authentication) {
         try {
             postService.deletePost(postId, authentication.getName());
             return ResponseUtil.ok("게시글이 성공적으로 삭제되었습니다.");
@@ -72,7 +72,7 @@ public class PostController {
     }
 
     @GetMapping("/posts/{postId}")
-    public ResponseEntity<PostDto> getPost(@PathVariable Long postId) {
+    public ResponseEntity<PostDto> getPost(@PathVariable("postId") long postId) {
         try {
             return ResponseUtil.ok(postService.getPost(postId));
         } catch (NoSuchElementException e) {

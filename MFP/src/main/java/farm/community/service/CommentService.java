@@ -56,7 +56,7 @@ public class CommentService {
     }
 
     private void updateCommentDetails(Comment comment, String updateComment) {
-        comment.setContent(updateComment);
+        comment.setComment(updateComment);
         commentRepository.save(comment);
     }
 
@@ -68,6 +68,14 @@ public class CommentService {
     private CommentDto getCommentDetails(long commentId) {
         return new CommentDto(commentRepository.findById(commentId)
                 .orElseThrow(() -> new NoSuchElementException("해당 댓글이 없습니다.")));
+    }
+
+    public List<CommentDto> getPostComment(long postId){
+        return getPostCommentDetails(findPost(postId));
+    }
+
+    private List<CommentDto> getPostCommentDetails(Post post){
+        return post.getComments().stream().map(CommentDto::new).toList();
     }
 
     public List<CommentDto> getAllComments() {

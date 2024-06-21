@@ -1,6 +1,5 @@
 package farm.community.controller;
 
-import farm.community.domain.Message;
 import farm.community.dto.MessageDto;
 import farm.community.service.MessageService;
 import farm.util.ResponseUtil;

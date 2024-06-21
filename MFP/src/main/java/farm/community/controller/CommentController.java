@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class CommentController {
     }
 
     @PostMapping("/comment/{postId}")
-    public ResponseEntity<String> comment(@RequestBody String comment, @PathVariable long postId, Authentication authentication) {
+    public ResponseEntity<String> comment(@RequestParam("comment") String comment, @PathVariable("postId") long postId, Authentication authentication) {
         try {
             commentService.comment(comment, postId, authentication.getName());
             return ResponseUtil.ok("댓글 작성 완료");
@@ -42,7 +43,7 @@ public class CommentController {
     }
 
     @DeleteMapping("/comment/{commentId}")
-    public ResponseEntity<String> deleteComment(@PathVariable long commentId, Authentication authentication) {
+    public ResponseEntity<String> deleteComment(@PathVariable("commentId") long commentId, Authentication authentication) {
         try {
             commentService.deleteComment(commentId, authentication.getName());
             return ResponseUtil.ok("댓글 삭제 완료");
@@ -54,7 +55,7 @@ public class CommentController {
     }
 
     @PutMapping("/comment/{commentId}")
-    public ResponseEntity<String> updateComment(@PathVariable long commentId, @RequestBody String updateComment, Authentication authentication) {
+    public ResponseEntity<String> updateComment(@PathVariable("commentId") long commentId, @RequestBody String updateComment, Authentication authentication) {
         try {
             commentService.updateComment(commentId, updateComment, authentication.getName());
             return ResponseUtil.ok("댓글 수정 완료");
@@ -65,8 +66,8 @@ public class CommentController {
         }
     }
 
-    @GetMapping("/comments/{commentId}")
-    public ResponseEntity<CommentDto> getComment(@PathVariable long commentId) {
+    @GetMapping("/comments/comment/{commentId}")
+    public ResponseEntity<CommentDto> getComment(@PathVariable("commentId") long commentId) {
         try {
             return ResponseUtil.ok(commentService.getComment(commentId));
         } catch (NoSuchElementException e) {
@@ -74,10 +75,19 @@ public class CommentController {
         }
     }
 
+    @GetMapping("/comments/post/{postId}")
+    public ResponseEntity<List<CommentDto>> getPostComment(@PathVariable("postId") long postId){
+        try{
+            return ResponseUtil.ok(commentService.getPostComment(postId));
+        }catch(NoSuchElementException e) {
+            return ResponseUtil.notFound();
+        }
+    }
+
     @GetMapping("/comments")
     public ResponseEntity<List<CommentDto>> getAllComments() {
         try {
-            return ResponseEntity.ok(commentService.getAllComments());
+            return ResponseUtil.ok(commentService.getAllComments());
         } catch (IllegalArgumentException e) {
             return ResponseUtil.notFound();
         }

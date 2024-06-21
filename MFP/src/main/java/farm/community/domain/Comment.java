@@ -17,7 +17,7 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String content;
+    private String comment;
 
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
@@ -43,7 +43,7 @@ public class Comment {
     }
 
     private Comment(String comment, Post post, Member member) {
-        this.content = comment;
+        this.comment = comment;
         this.member = member;
         this.post = post;
     }
@@ -52,8 +52,8 @@ public class Comment {
         return id;
     }
 
-    public String getContent() {
-        return content;
+    public String getComment() {
+        return comment;
     }
 
     public Date getCommentDate() {
@@ -72,7 +72,7 @@ public class Comment {
         return post;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

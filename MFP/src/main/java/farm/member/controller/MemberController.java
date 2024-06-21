@@ -8,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -33,7 +35,7 @@ public class MemberController {
     }
 
     @PostMapping("/editUserInfo")
-    public ResponseEntity<String> editUserInfo(MemberDto memberDto, Authentication authentication){
+    public ResponseEntity<String> editUserInfo(@RequestBody MemberDto memberDto, Authentication authentication){
         try{
             memberService.editUserInfo(memberDto, authentication.getName());
             return ResponseUtil.ok("회원정보 수정이 완료되었습니다.");
@@ -43,7 +45,7 @@ public class MemberController {
     }
 
     @PostMapping("/editUserPass")
-    public ResponseEntity<String> editUserPass(String password, Authentication authentication){
+    public ResponseEntity<String> editUserPass(@RequestParam("password") String password, Authentication authentication){
         try{
             memberService.editUserPass(password, authentication.getName());
             return ResponseUtil.ok("비밀번호 수정이 완료되었습니다.");

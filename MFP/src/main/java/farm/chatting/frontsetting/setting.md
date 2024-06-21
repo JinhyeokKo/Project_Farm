@@ -17,7 +17,7 @@ stompClient.onConnect = (frame) => {
     setConnected(true);
     console.log('Connected: ' + frame);
     stompClient.subscribe('/topic/chatting', (greeting) => {
-        showGreeting(JSON.parse(greeting.body).content);
+        showGreeting(JSON.parse(greeting.body).comment);
     });
 };
 

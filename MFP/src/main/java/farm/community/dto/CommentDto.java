@@ -1,44 +1,42 @@
 package farm.community.dto;
 
 import farm.community.domain.Comment;
-import farm.community.domain.Post;
-import farm.member.domain.Member;
 
 public class CommentDto {
-    private String content;
-    private Member member;
-    private Post post;
+    private String comment;
+    private String member;
+    private Long post;
 
     public CommentDto() {
     }
 
     public CommentDto(Comment comment) {
-        this.content = comment.getContent();
-        this.member = comment.getMember();
-        this.post = comment.getPost();
+        this.comment = comment.getComment();
+        this.member = comment.getMember().getUsername();
+        this.post = comment.getPost().getId();
     }
 
-    public String getContent() {
-        return content;
+    public String getComment() {
+        return comment;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
-    public Member getMember() {
+    public String getMember() {
         return member;
     }
 
-    public void setMember(Member member) {
+    public void setMember(String member) {
         this.member = member;
     }
 
-    public Post getPost() {
+    public Long getPost() {
         return post;
     }
 
-    public void setPost(Post post) {
+    public void setPost(Long post) {
         this.post = post;
     }
 }

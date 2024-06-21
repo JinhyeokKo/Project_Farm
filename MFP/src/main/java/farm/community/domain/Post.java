@@ -126,4 +126,8 @@ public class Post {
     public void setCategory(String category) {
         this.category = category;
     }
+
+    public void setViewCount(int viewCount) {
+        this.viewCount = viewCount;
+    }
 }

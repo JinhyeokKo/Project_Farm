@@ -65,7 +65,13 @@ public class PostService {
 
     public PostDto getPost(long postId) {
         Post post = checkPost(postId);
+        postViewCount(post);
         return new PostDto(post);
+    }
+
+    private void postViewCount(Post post){
+        post.setViewCount(post.getViewCount()+1);
+        postRepository.save(post);
     }
 
     public List<PostDto> getAllPosts() {
