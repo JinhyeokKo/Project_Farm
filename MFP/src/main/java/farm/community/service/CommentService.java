@@ -5,6 +5,10 @@ import farm.community.domain.Post;
 import farm.community.dto.CommentDto;
 import farm.community.repository.CommentRepository;
 import farm.community.repository.PostRepository;
+import farm.error.exception.CommentNotFoundException;
+import farm.error.exception.MemberNotFoundException;
+import farm.error.exception.NoPermissionException;
+import farm.error.exception.PostNotFoundException;
 import farm.member.domain.Member;
 import farm.member.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Transactional
 @Service
@@ -67,7 +70,7 @@ public class CommentService {
 
     private CommentDto getCommentDetails(long commentId) {
         return new CommentDto(commentRepository.findById(commentId)
-                .orElseThrow(() -> new NoSuchElementException("해당 댓글이 없습니다.")));
+                .orElseThrow(CommentNotFoundException::new));
     }
 
     public List<CommentDto> getPostComment(long postId){
@@ -88,22 +91,22 @@ public class CommentService {
 
     private Post findPost(Long postId) {
         return postRepository.findById(postId)
-                .orElseThrow(() -> new NoSuchElementException("해당 포스트가 없습니다."));
+                .orElseThrow(PostNotFoundException::new);
     }
 
     private Member findMember(String username) {
         return memberRepository.findByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다."));
+                .orElseThrow(MemberNotFoundException::new);
     }
 
     private Comment findComment(Long commentId) {
         return commentRepository.findById(commentId)
-                .orElseThrow(() -> new NoSuchElementException("해당 댓글이 없습니다."));
+                .orElseThrow(CommentNotFoundException::new);
     }
 
     private void commentAuth(Comment comment, String username) {
         if (!comment.getMember().getUsername().equals(username)) {
-            throw new IllegalArgumentException("해당 댓글을 수정할 권한이 없습니다.");
+            throw new NoPermissionException();
         }
     }
 }

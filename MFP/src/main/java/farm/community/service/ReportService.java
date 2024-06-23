@@ -4,11 +4,10 @@ import farm.community.domain.Post;
 import farm.community.domain.Report;
 import farm.community.repository.PostRepository;
 import farm.community.repository.ReportRepository;
+import farm.error.exception.PostNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.NoSuchElementException;
 
 @Transactional
 @Service
@@ -31,7 +30,7 @@ public class ReportService {
 
     private Post checkPost(long postId){
         return postRepository.findById(postId)
-                .orElseThrow(() -> new NoSuchElementException("해당 게시글이 존재하지 않습니다."));
+                .orElseThrow(PostNotFoundException::new);
     }
 
     private void createReport(String reason, Post post){

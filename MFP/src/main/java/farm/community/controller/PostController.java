@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @RestController
 public class PostController {
@@ -30,62 +29,37 @@ public class PostController {
 
     @PostMapping("/post")
     public ResponseEntity<String> createPost(@RequestBody PostDto createPost, Authentication authentication) {
-        try{
-            postService.createPost(createPost, authentication.getName());
-            return ResponseUtil.created("게시글이 성공적으로 작성되었습니다.");
-        }catch (IllegalArgumentException e) {
-            return ResponseUtil.badRequest(e.getMessage());
-        }
+        postService.createPost(createPost, authentication.getName());
+        return ResponseUtil.created("게시글이 성공적으로 작성되었습니다.");
     }
 
     @PutMapping("/post/{postId}")
     public ResponseEntity<String> updatePost(@PathVariable("postId") long postId, @RequestBody PostDto updatedPost, Authentication authentication) {
-        try {
-            postService.updatePost(postId, updatedPost, authentication.getName());
-            return ResponseUtil.ok("게시글이 성공적으로 수정되었습니다.");
-        } catch (NoSuchElementException e) {
-            return ResponseUtil.notFound(e.getMessage());
-        } catch (IllegalCallerException e) {
-            return ResponseUtil.unauthorized(e.getMessage());
-        }
+        postService.updatePost(postId, updatedPost, authentication.getName());
+        return ResponseUtil.ok("게시글이 성공적으로 수정되었습니다.");
     }
 
     @DeleteMapping("/post/{postId}")
     public ResponseEntity<String> deletePost(@PathVariable("postId") long postId, Authentication authentication) {
-        try {
-            postService.deletePost(postId, authentication.getName());
-            return ResponseUtil.ok("게시글이 성공적으로 삭제되었습니다.");
-        } catch (NoSuchElementException e) {
-            return ResponseUtil.notFound(e.getMessage());
-        } catch (IllegalCallerException e) {
-            return ResponseUtil.unauthorized(e.getMessage());
-        }
+        postService.deletePost(postId, authentication.getName());
+        return ResponseUtil.ok("게시글이 성공적으로 삭제되었습니다.");
+
     }
 
     @GetMapping("/post")
     public ResponseEntity<List<PostDto>> getMyPosts(Authentication authentication) {
-        try{
-            return ResponseUtil.ok(postService.getMyPosts(authentication.getName()));
-        } catch (NoSuchElementException e) {
-            return ResponseUtil.notFound();
-        }
+        return ResponseUtil.ok(postService.getMyPosts(authentication.getName()));
+
     }
 
     @GetMapping("/posts/{postId}")
     public ResponseEntity<PostDto> getPost(@PathVariable("postId") long postId) {
-        try {
-            return ResponseUtil.ok(postService.getPost(postId));
-        } catch (NoSuchElementException e) {
-            return ResponseUtil.notFound();
-        }
+        return ResponseUtil.ok(postService.getPost(postId));
     }
 
     @GetMapping("/posts")
     public ResponseEntity<List<PostDto>> getAllPosts() {
-        try {
-            return ResponseUtil.ok(postService.getAllPosts());
-        } catch (NoSuchElementException e) {
-            return ResponseUtil.notFound();
-        }
+        return ResponseUtil.ok(postService.getAllPosts());
+
     }
 }

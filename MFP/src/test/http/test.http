@@ -1,10 +1,11 @@
 # Member
-### register
+### register(image)
 POST http://localhost:8080/login/register
 Content-Type: multipart/form-data; boundary=boundary
+X-XSRF-TOKEN: 0b731f6b-dbd9-4780-a040-ed3a1cab0307
 
 --boundary
-Content-Disposition: form-data; name="memberDto"
+Content-Disposition: form-data;
 Content-Type: application/json
 
 {
@@ -53,16 +54,17 @@ Content-Type: application/json
 GET http://localhost:8080/posts
 
 ### getpost
-GET http://localhost:8080/posts/8
+GET http://localhost:8080/posts/15
 
 ### getposts(auth)
 GET http://localhost:8080/post
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTg5NDA4MjQsInVzZXJuYW1lIjoicXdlciJ9.tqan9mtHoaC7ajuh6APdLVVmC7uKUIkyJPAQ8Q6tmfE
 
 ### updatepost
-PUT http://localhost:8080/post/12
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTg5NDA4MjQsInVzZXJuYW1lIjoicXdlciJ9.tqan9mtHoaC7ajuh6APdLVVmC7uKUIkyJPAQ8Q6tmfE
+PUT http://localhost:8080/post/11
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTg5ODQ1NDIsInVzZXJuYW1lIjoicXdlciJ9.xLkqdNSYDMIzvG6IZupJds-hjk-4ok56NwAi923X-lI
 Content-Type: application/json
+X-XSRF-TOKEN: 0b731f6b-dbd9-4780-a040-ed3a1cab0307
 
 {
   "title": "112qqq31",
@@ -86,7 +88,7 @@ Content-Type: application/x-www-form-urlencoded
 GET http://localhost:8080/comments
 
 ### getcomment
-GET http://localhost:8080/comments/comment/3
+GET http://localhost:8080/comments/comment/33
 Accept: application/json
 
 ### getPostComment

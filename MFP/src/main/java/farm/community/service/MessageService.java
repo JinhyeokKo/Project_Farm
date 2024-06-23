@@ -3,6 +3,9 @@ package farm.community.service;
 import farm.community.domain.Message;
 import farm.community.dto.MessageDto;
 import farm.community.repository.MessageRepository;
+import farm.error.exception.MemberNotFoundException;
+import farm.error.exception.MessageNotFoundException;
+import farm.error.exception.NoPermissionException;
 import farm.member.domain.Member;
 import farm.member.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,18 +59,18 @@ public class MessageService {
 
     private MessageDto getMessageDetails(Message message, String username) {
         if (!message.getReceiver().getUsername().equals(username) || !message.getSender().getUsername().equals(username)) {
-            throw new IllegalArgumentException("해당 메시지를 볼 권한이 없습니다.");
+            throw new NoPermissionException();
         }
         return new MessageDto(message);
     }
 
     private Message getFindByMessageId(long messageId) {
         return messageRepository.findById(messageId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 메시지가 존재하지 않습니다."));
+                .orElseThrow(MessageNotFoundException::new);
     }
 
     private Member getMemberByUsername(String username) {
         return memberRepository.findByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다."));
+                .orElseThrow(MemberNotFoundException::new);
     }
 }

@@ -1,5 +1,6 @@
 package farm.member.service;
 
+import farm.error.exception.MemberNotFoundException;
 import farm.member.domain.Member;
 import farm.member.dto.MemberDto;
 import farm.member.repository.MemberRepository;
@@ -43,7 +44,7 @@ public class MemberService {
 
     private Member getMemberInfo(String username){
         return memberRepository.findByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+                .orElseThrow(MemberNotFoundException::new);
     }
 
     public void editUserPass(String password, String username){

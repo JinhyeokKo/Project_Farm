@@ -1,5 +1,6 @@
 package farm.member.service;
 
+import farm.error.exception.InUsedUsernameException;
 import farm.member.domain.Member;
 import farm.member.dto.MemberDto;
 import farm.member.repository.MemberRepository;
@@ -26,7 +27,7 @@ public class RegisterService {
 
     public void registerMember(MemberDto memberDto, byte[] profileImage) {
         if (doubleCheck(memberDto.getUsername())) {
-            throw new IllegalArgumentException("이미 사용중인 아이디입니다.");
+            throw new InUsedUsernameException();
         }
         registerMemberDetails(memberDto, profileImage);
     }
