@@ -130,4 +130,8 @@ public class Post {
     public void setViewCount(int viewCount) {
         this.viewCount = viewCount;
     }
+
+    public void viewCountUp() {
+        this.viewCount += 1;
+    }
 }

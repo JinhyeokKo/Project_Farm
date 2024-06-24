@@ -1,6 +1,7 @@
 package farm.member.dto;
 
 import farm.member.domain.Member;
+import farm.member.domain.Role;
 
 public class MemberDto {
     private String username;
@@ -10,6 +11,7 @@ public class MemberDto {
     private String phone;
     private String address;
     private byte[] profileImage;
+    private Role role;
 
     private MemberDto() {
     }
@@ -21,6 +23,7 @@ public class MemberDto {
         this.address = member.getAddress();
         this.email = member.getEmail();
         this.profileImage = member.getProfileImage();
+        this.role = member.getRole();
     }
 
     public static MemberDto createMemberDto(Member member) {
@@ -29,6 +32,14 @@ public class MemberDto {
 
     public String getUsername() {
         return username;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public void setUsername(String username) {

@@ -59,6 +59,5 @@ public class CommentController {
     @GetMapping("/comments")
     public ResponseEntity<List<CommentDto>> getAllComments() {
         return ResponseUtil.ok(commentService.getAllComments());
-
     }
 }

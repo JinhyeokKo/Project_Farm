@@ -38,7 +38,6 @@ public class MemberService {
         member.setEmail(memberDto.getEmail());
         member.setAddress(memberDto.getAddress());
         member.setPhone(memberDto.getPhone());
-        member.setProfileImage(memberDto.getProfileImage());
         memberRepository.save(member);
     }
 
@@ -54,5 +53,13 @@ public class MemberService {
     private void editUserPassDetails(String password, Member member){
         member.setPassword(passwordEncoder.encode(password));
         memberRepository.save(member);
+    }
+
+    public void deleteUser(String username){
+        deleteUserDetails(getMemberInfo(username));
+    }
+
+    private void deleteUserDetails(Member member){
+        memberRepository.delete(member);
     }
 }

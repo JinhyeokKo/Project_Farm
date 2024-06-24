@@ -72,7 +72,7 @@ public class PostService {
     }
 
     private void postViewCount(Post post){
-        post.setViewCount(post.getViewCount()+1);
+        post.viewCountUp();
         postRepository.save(post);
     }
 
@@ -90,7 +90,6 @@ public class PostService {
     }
 
     private Post checkPost(long postId) {
-        System.out.println("d");
         return postRepository.findById(postId)
                 .orElseThrow(PostNotFoundException::new);
     }
