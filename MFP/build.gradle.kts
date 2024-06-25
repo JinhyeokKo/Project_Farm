@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "farm"
-version = "0.0.11-SNAPSHOT"
+version = "0.1.11-SNAPSHOT"
 
 java {
     toolchain {
