@@ -86,7 +86,7 @@ public class CommentService {
     }
 
     private List<CommentDto> getAllCommentsDetails() {
-        return commentRepository.findAll().stream().map(CommentDto::new).toList();
+        return commentRepository.findAllByOrderByIdAsc().stream().map(CommentDto::new).toList();
     }
 
     private Post findPost(Long postId) {

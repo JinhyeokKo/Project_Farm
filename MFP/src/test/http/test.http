@@ -41,7 +41,8 @@ POST http://localhost:8080/login/doubleCheck?username=qwer555
 # Post
 ### post
 POST http://localhost:8080/post
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTg5NDA4MjQsInVzZXJuYW1lIjoicXdlciJ9.tqan9mtHoaC7ajuh6APdLVVmC7uKUIkyJPAQ8Q6tmfE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTkyOTg0MTIsInVzZXJuYW1lIjoicXdlciJ9.JaCA5uiM0yLKk5oL9uYEKoa7iDueuMDkwygz-lRDqng
+X-XSRF-TOKEN: 0b731f6b-dbd9-4780-a040-ed3a1cab0307
 Content-Type: application/json
 
 {

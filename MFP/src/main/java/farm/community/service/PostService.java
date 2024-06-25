@@ -77,7 +77,7 @@ public class PostService {
     }
 
     public List<PostDto> getAllPosts() {
-        List<Post> posts = postRepository.findAll();
+        List<Post> posts = postRepository.findAllByOrderByIdAsc();
         if (posts.isEmpty()) {
             throw new PostNotFoundException();
         }
