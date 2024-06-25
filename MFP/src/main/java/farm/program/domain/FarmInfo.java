@@ -3,6 +3,7 @@ package farm.program.domain;
 import farm.member.domain.Member;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,17 +20,26 @@ public class FarmInfo {
 
     private String address;
 
-    @OneToMany(mappedBy = "farmInfos", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<FarmCrop> farmCrops;
+    @OneToMany(mappedBy = "farmInfo", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FarmCrops> farmCrops = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "member_role")
+    @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "farmInfos", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CustomerInfo> customerInfos;
+    @OneToMany(mappedBy = "farmInfo", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CustomerInfo> customerInfos = new ArrayList<>();
 
-    // Getters and setters
+    // Constructors
+    public FarmInfo() {}
+
+    public FarmInfo(String name, String address, Member member) {
+        this.name = name;
+        this.address = address;
+        this.member = member;
+    }
+
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -54,6 +64,14 @@ public class FarmInfo {
         this.address = address;
     }
 
+    public List<FarmCrops> getFarmCrops() {
+        return farmCrops;
+    }
+
+    public void setFarmCrops(List<FarmCrops> farmCrops) {
+        this.farmCrops = farmCrops;
+    }
+
     public Member getMember() {
         return member;
     }
@@ -68,5 +86,26 @@ public class FarmInfo {
 
     public void setCustomerInfos(List<CustomerInfo> customerInfos) {
         this.customerInfos = customerInfos;
+    }
+
+    // 편의 메서드
+    public void addFarmCrop(FarmCrops farmCrop) {
+        farmCrops.add(farmCrop);
+        farmCrop.setFarmInfo(this);
+    }
+
+    public void removeFarmCrop(FarmCrops farmCrop) {
+        farmCrops.remove(farmCrop);
+        farmCrop.setFarmInfo(null);
+    }
+
+    public void addCustomerInfo(CustomerInfo customerInfo) {
+        customerInfos.add(customerInfo);
+        customerInfo.setFarmInfo(this);
+    }
+
+    public void removeCustomerInfo(CustomerInfo customerInfo) {
+        customerInfos.remove(customerInfo);
+        customerInfo.setFarmInfo(null);
     }
 }
