@@ -46,7 +46,8 @@ public class SecurityConfig {
                                 new AntPathRequestMatcher("/report/**"),
                                 new AntPathRequestMatcher("/posts/**"),
                                 new AntPathRequestMatcher("/upload"),
-                                new AntPathRequestMatcher("/program/**")
+                                new AntPathRequestMatcher("/program/**"),
+                                new AntPathRequestMatcher(("/ws/**"))
                         ).permitAll()
                         .requestMatchers(
                                 new AntPathRequestMatcher("/message/**"),
