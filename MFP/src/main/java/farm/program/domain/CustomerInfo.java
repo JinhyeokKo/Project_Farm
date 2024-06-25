@@ -1,13 +1,7 @@
 package farm.program.domain;
 
 import farm.member.domain.Member;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "customer_infos")
@@ -16,23 +10,31 @@ public class CustomerInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
-
     private String selectedCrop;
-
     private String status;
 
     @ManyToOne
-    @JoinColumn(name = "member_role")
+    @JoinColumn(name = "member_id")
     private Member member;
 
     @ManyToOne
     @JoinColumn(name = "farm_id")
-    private FarmInfo farmInfos;
+    private FarmInfo farmInfo;
 
+    // Constructors
+    public CustomerInfo() {}
 
+    public CustomerInfo(String name, String selectedCrop, String status, Member member, FarmInfo farmInfo) {
+        this.name = name;
+        this.selectedCrop = selectedCrop;
+        this.status = status;
+        this.member = member;
+        this.farmInfo = farmInfo;
+    }
 
-    // Getters and setters
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -74,10 +76,10 @@ public class CustomerInfo {
     }
 
     public FarmInfo getFarmInfo() {
-        return farmInfos;
+        return farmInfo;
     }
 
     public void setFarmInfo(FarmInfo farmInfo) {
-        this.farmInfos = farmInfo;
+        this.farmInfo = farmInfo;
     }
 }
