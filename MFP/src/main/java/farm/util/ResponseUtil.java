@@ -39,4 +39,8 @@ public class ResponseUtil {
     public static ResponseEntity<String> serverError(String message) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
     }
+
+//    public static ResponseEntity<?> noContent(String s) {
+//        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(s);
+//    }
 }

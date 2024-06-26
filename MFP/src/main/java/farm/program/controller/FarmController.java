@@ -29,7 +29,7 @@ public class FarmController {
         try {
             List<String> crops = farmService.getAllCrops();
             if (crops.isEmpty()) {
-                return ResponseUtil.noContent("등록된 작물이 없습니다.");
+                return ResponseUtil.notFound("등록된 작물이 없습니다.");
             }
             return ResponseUtil.ok(crops);
         } catch (Exception e) {

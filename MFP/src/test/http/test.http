@@ -2,35 +2,37 @@
 ### register(image)
 POST http://localhost:8080/login/register
 Content-Type: multipart/form-data; boundary=boundary
-X-XSRF-TOKEN: 0b731f6b-dbd9-4780-a040-ed3a1cab0307
+#X-XSRF-TOKEN: 0b731f6b-dbd9-4780-a040-ed3a1cab0307
 
 --boundary
-Content-Disposition: form-data;
+Content-Disposition: form-data; name="memberDto"
 Content-Type: application/json
 
 {
-  "username": "test1123",
-  "password": "1234",
+  "username": "youcancel",
+  "password": "youcancel",
   "address": "qweqf2",
-  "phone": "214214214",
-  "email": "qwfwqfq",
-  "name": "qweqf2"
+  "phone": "010-1111-1111",
+  "email": "qwf@qwe.com",
+  "name": "you"
 }
 
 --boundary
-Content-Disposition: form-data; name="profileImage"; filename="test.jpg"
+Content-Disposition: form-data; name="profileImage"; filename="test.jpeg"
 Content-Type: image/jpeg
 
-@/D:/A/test.jpg
+@/D:/Pictures/test.jpeg
 --boundary--
+
 
 ### login
 POST http://localhost:8080/login
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTkzMzYyODAsInVzZXJuYW1lIjoieW91Y2FuY2VsMSJ9.tWnyoObtGiXrK3kugE6v0aBoVgRX9bLE5FtbiO3t0_0
 
 {
-  "username": "qwer",
-  "password": "1234"
+  "username": "youcancel1",
+  "password": "youcancel1"
 }
 
 ### doublecheck
@@ -136,3 +138,12 @@ Content-Type: image/jpeg
 
 @/D:/A/test.jpg
 --boundary--
+
+### createChattingRoom
+POST http://localhost:8080/chatting/chattingroom?user1=youcancel1&user2=youcancel2
+Content-Type: application/json
+
+{
+  "title": "Test",
+  "content": "Hello"
+}
