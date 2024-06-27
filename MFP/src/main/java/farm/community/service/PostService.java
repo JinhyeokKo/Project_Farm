@@ -8,6 +8,7 @@ import farm.error.exception.NoPermissionException;
 import farm.error.exception.PostNotFoundException;
 import farm.member.domain.Member;
 import farm.member.repository.MemberRepository;
+import farm.program.domain.CustomerInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

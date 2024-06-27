@@ -28,11 +28,10 @@ Content-Type: image/jpeg
 ### login
 POST http://localhost:8080/login
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTkzMzYyODAsInVzZXJuYW1lIjoieW91Y2FuY2VsMSJ9.tWnyoObtGiXrK3kugE6v0aBoVgRX9bLE5FtbiO3t0_0
 
 {
-  "username": "youcancel1",
-  "password": "youcancel1"
+  "username": "qwer",
+  "password": "1234"
 }
 
 ### doublecheck
@@ -129,7 +128,7 @@ GET http://localhost:8080/likes/2
 
 
 ### ML
-POST http://localhost:8080/upload
+POST http://localhost:8080/gallery/upload
 Content-Type: multipart/form-data; boundary=boundary
 
 --boundary
@@ -147,3 +146,15 @@ Content-Type: application/json
   "title": "Test",
   "content": "Hello"
 }
+
+### gallery
+POST http://localhost:8080/gallery/test
+Content-Type: multipart/form-data; boundary=boundary
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTkzOTE4NTAsInVzZXJuYW1lIjoicXdlciJ9.FbRRiGGYUMZvBRvemoZ1yb2RG_fz89RlSgZ5ws4Bcno
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="test.jpg"
+Content-Type: image/jpeg
+
+@/D:/A/test.jpg
+--boundary--

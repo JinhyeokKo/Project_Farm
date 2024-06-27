@@ -1,5 +1,7 @@
 package farm.program.controller;
 
+import farm.program.domain.CustomerInfo;
+import farm.program.domain.FarmInfo;
 import farm.program.dto.CustomerInfoDto;
 import farm.program.dto.FarmInfoDto;
 import farm.program.service.FarmService;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/program")
@@ -39,7 +42,7 @@ public class FarmController {
 
     // 선택한 작물을 재배하는 농장 목록 조회
     @GetMapping("/farms")
-    public ResponseEntity<?> getFarmsByCrop(@RequestParam String crop) {
+    public ResponseEntity<?> getFarmsByCrop(@RequestParam("crop") String crop) {
         try {
             List<FarmInfoDto> farms = farmService.getFarmsByCrop(crop);
             return ResponseUtil.ok(farms);
@@ -102,5 +105,17 @@ public class FarmController {
         } catch (Exception e) {
             return ResponseUtil.serverError("농장 정보 등록 중 오류가 발생했습니다.");
         }
+    }
+
+    @PostMapping("/farmer")
+    public ResponseEntity<?> farmer(Authentication authentication) {
+        List<CustomerInfo> customerInfos = farmService.getAllCustomer(authentication.getName());
+        return ResponseUtil.ok(customerInfos);
+    }
+
+    @PostMapping("/customer")
+    public ResponseEntity<?> customer(Authentication authentication){
+        Set<FarmInfo> farmInfos = farmService.getAllFarm(authentication.getName());
+        return ResponseUtil.ok(farmInfos);
     }
 }

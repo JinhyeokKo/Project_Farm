@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -130,5 +131,28 @@ public class FarmService {
 
         FarmInfo savedFarmInfo = farmInfoRepository.save(farmInfo);
         return FarmInfoDto.fromEntity(savedFarmInfo);
+    }
+
+    public List<CustomerInfo> getAllCustomer(String name) {
+        Member member = findMember(name);
+        FarmInfo farm = findFarm(member);
+        return findCustomer(farm);
+    }
+
+    public Set<FarmInfo> getAllFarm(String name){
+        Member member = findMember(name);
+        return member.getFarmInfos();
+    }
+
+    private Member findMember(String name) {
+        return memberRepository.findByUsername(name).orElseThrow(() -> new NoSuchElementException("멤버 없음"));
+    }
+
+    private FarmInfo findFarm(Member member) {
+        return farmInfoRepository.findByMemberId(member.getId()).orElseThrow(() -> new NoSuchElementException("농장 없음"));
+    }
+
+    private List<CustomerInfo> findCustomer(FarmInfo farm){
+        return customerInfoRepository.findByFarmInfoId(farm.getId());
     }
 }

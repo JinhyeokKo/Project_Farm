@@ -1,5 +1,7 @@
 package farm.ml.service;
 
+import farm.gallery.domain.Gallery;
+import farm.gallery.repository.GalleryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.MediaType;
@@ -9,15 +11,19 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.NoSuchElementException;
+
 @Service
 public class MLService {
 
     private final WebClient webClient;
+    private final GalleryRepository galleryRepository;
 
     // flask 와 통신할 수 있도록 webclient 초기화
     @Autowired
-    public MLService(WebClient.Builder webClientBuilder) {
+    public MLService(WebClient.Builder webClientBuilder, GalleryRepository galleryRepository) {
         this.webClient = webClientBuilder.baseUrl("http://localhost:5000").build();
+        this. galleryRepository = galleryRepository;
     }
 
     public String predict(byte[] imageBytes, String filename) {
@@ -43,5 +49,16 @@ public class MLService {
                 .retrieve() // 요청을 전송하고 응답을 받음
                 .bodyToMono(String.class) // 응답 본문을 문자열로 변환
                 .block(); // 동기식으로 결과를 기다림
+    }
+
+    public void saveStatus(String prediction, String filename) {
+        Gallery gallery = findGallery(filename);
+        gallery.setStatus(prediction);
+        galleryRepository.save(gallery);
+    }
+
+    private Gallery findGallery(String filename){
+        return galleryRepository.findByName(filename)
+                .orElseThrow(() -> new NoSuchElementException("찾을 수 없음"));
     }
 }
