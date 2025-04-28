@@ -30,6 +30,7 @@ Project_Farm의 백엔드 서버 리포지토리입니다.
 * imageio-core 3.11.0
 ##
 ### 작업
+프로젝트를 진행하며 작업한 내역은 [릴리즈 노트](https://github.com/JinhyeokKo/Project_Farm/releases)를 통해 확인하실 수 있습니다.
 
 #### 앨범
 * Jcodec 라이브러리 사용
