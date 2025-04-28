@@ -1,4 +1,5 @@
 # 제 9회 농림축산식품부 공공데이터 활용 창업경진대회
+![logo](https://raw.githubusercontent.com/JinhyeokKo/Project_Farm/master/docs/logo.jpg)
 * 공모 구분 : 아이디어 기획(공공데이터) 제품 및 서비스 개발 부문 작품 공모
 * 공모 내용 : 식품 분야 생산, 유통, 소비 관련 국민편익 제고 및 부가가치 창출을 위한 web 및 app 서비스
 * 대회 기간
@@ -19,6 +20,9 @@
 * 단순 시각적 서비스뿐만 아닌 농가를 방문하여 체험해 볼 수 있는 경험 제공
 * 실시간 작물의 병충해 및 성장 상태분석(농가 한정 제공)
 
+> 프로젝트의 자세한 기획은 [Docs](https://github.com/JinhyeokKo/Project_Farm/tree/master/docs)를 통해 확인하실 수 있습니다.  
+> 프로젝트를 진행하며 작업한 내역은 [Releases](https://github.com/JinhyeokKo/Project_Farm/releases)를 통해 확인하실 수 있습니다.
+
 ### 디렉터리 구조
 ```
 ├── MFP # 웹 백엔드 서버
@@ -32,11 +36,13 @@
 * Front : [Front](https://github.com/kyung89/frontened_proto_kyung)
 * Back : [Back](https://github.com/JinhyeokKo/Project_Farm/tree/master/MFP)
 * Android App : [Android App](https://github.com/JinhyeokKo/Project_Farm/tree/master/MFP2)
+* Releases Note : [Releases](https://github.com/JinhyeokKo/Project_Farm/releases)
+* 기획안 : [Docs](https://github.com/JinhyeokKo/Project_Farm/tree/master/docs)
 
 ### 팀원
 
-|                                             고진혁                                            |                                             이왕훈                                            |                                        옥경림                                              | 정주애 | 최인규 |
-|:--------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------:|:--:|:--:|
-| <img src="https://avatars.githubusercontent.com/u/160887371?v=4" width="100" height="100" /> | <img src="https://avatars.githubusercontent.com/u/160670466?v=4" width="100" height="100" /> | <img src="https://avatars.githubusercontent.com/u/37587498?v=4" width="100" height="100" /> | <img src="https://cdn.simpleicons.org/github/7d7d7d" width="100" height="100" /> | <img src="https://cdn.simpleicons.org/github/7d7d7d" width="100" height="100" /> |
-|                         [@JinhyeokKo](https://github.com/JinhyeokKo)                         |                            [@52hater](https://github.com/52hater)                            |                           [@kyung89](https://github.com/kyung89)                           |||
-|                                               Back                                            |                                              App                                              |                                           Front                                           | Design | ML |      
+|                                             고진혁                                            |                                             이왕훈                                            |                                        옥경림                                              | 정주애 |
+|:--------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------:|:--:|
+| <img src="https://avatars.githubusercontent.com/u/160887371?v=4" width="100" height="100" /> | <img src="https://avatars.githubusercontent.com/u/160670466?v=4" width="100" height="100" /> | <img src="https://avatars.githubusercontent.com/u/37587498?v=4" width="100" height="100" /> | <img src="https://cdn.simpleicons.org/github/7d7d7d" width="100" height="100" /> |
+|                         [@JinhyeokKo](https://github.com/JinhyeokKo)                         |                            [@52hater](https://github.com/52hater)                            |                           [@kyung89](https://github.com/kyung89)                           ||
+|                                               Back                                            |                                              App                                              |                                           Front                                           | Design |
