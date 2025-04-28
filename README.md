@@ -19,6 +19,15 @@
 * 단순 시각적 서비스뿐만 아닌 농가를 방문하여 체험해 볼 수 있는 경험 제공
 * 실시간 작물의 병충해 및 성장 상태분석(농가 한정 제공)
 
+### 디렉터리 구조
+```
+├── MFP # 웹 백엔드 서버
+├── MFP2 # 사용자 안드로이드 어플리케이션
+├── MLAPI # 플라스트 통신 테스트 및 모델 운용 서
+├── android_connected # 농가 설치용 안드로이드 어플리케이션
+└── docs # 문서 관리용 폴더
+```
+
 ### 기능 별 리포지토리
 * Front : [Front](https://github.com/kyung89/frontened_proto_kyung)
 * Back : [Back](https://github.com/JinhyeokKo/Project_Farm/tree/master/MFP)
